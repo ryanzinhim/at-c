@@ -1,0 +1,44 @@
+﻿@page
+@model TurismoPorAi.Pages.ViewNotesModel
+@{
+    ViewData["Title"] = "Gerenciar Anotações";
+}
+
+<h2>Nova Anotação</h2>
+
+<form method="post" asp-page-handler="Save">
+    <label>Nome do Arquivo:</label>
+    <input asp-for="FileName" />
+    <br />
+    <label>Texto:</label><br />
+    <textarea asp-for="NoteText" rows="6" cols="50"></textarea><br />
+    <button type="submit">Salvar</button>
+</form>
+
+<hr />
+
+<h2>Arquivos Salvos</h2>
+
+@if (Model.Files.Any())
+{
+    <form method="post" asp-page-handler="View">
+        <select name="fileToView">
+            @foreach (var file in Model.Files)
+            {
+                <option value="@file">@file</option>
+            }
+        </select>
+        <button type="submit">Ver Conteúdo</button>
+    </form>
+}
+else
+{
+    <p>Nenhum arquivo disponível.</p>
+}
+
+@if (!string.IsNullOrEmpty(Model.FileContent))
+{
+    <hr />
+    <h3>Conteúdo do Arquivo</h3>
+    <pre>@Model.FileContent</pre>
+}

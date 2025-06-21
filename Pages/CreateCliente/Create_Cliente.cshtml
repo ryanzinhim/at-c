@@ -1,0 +1,39 @@
+﻿@page
+@model EXPEXturism.Pages.CreateCliente.Create_ClienteModel
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@{
+    ViewData["Title"] = "Cadastrar Cliente";
+}
+
+<h2>Cadastrar Cliente</h2>
+
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    <div class="alert alert-success">@Model.Mensagem</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Cliente.ClienteNome">Nome: </label>
+        <input asp-for="Cliente.ClienteNome" class="form-control" />
+        <span asp-validation-for="Cliente.ClienteNome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cliente.ClienteEmail">Email: </label>
+        <input asp-for="Cliente.ClienteEmail" class="form-control" />
+        <span asp-validation-for="Cliente.ClienteEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cliente.ClienteTelefone">Telefone: </label>
+        <input asp-for="Cliente.ClienteTelefone" class="form-control" />
+        <span asp-validation-for="Cliente.ClienteTelefone" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+
+

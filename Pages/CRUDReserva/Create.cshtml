@@ -1,0 +1,70 @@
+﻿@page
+@using EXPEXturism.Pages.CRUDReserva
+@model EXPEXturism.Pages.CRUDReserva.CreateModel
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Reserva</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ClienteId" class="control-label">Nome do Cliente: </label>
+                <select asp-for="ClienteId" class="form-control" asp-items="Model.ClientesSelectList">
+                    <option value="">Selecione um cliente</option>
+                </select>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="PacoteId" class="control-label">Nome do Pacote</label>
+                <select asp-for="PacoteId" class="form-control" id="pacoteSelect">
+                    <option value="">Selecione um pacote</option>
+                    @foreach (var pacote in Model.Pacotes)
+                    {
+                        <option value="@pacote.Id" data-datainicio="@pacote.DataInicio">@pacote.Nome</option>
+                    }
+                </select>
+                <span asp-validation-for="PacoteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Data do Evento</label>
+                <p id="dataInicio"></p>
+            </div>
+
+            <button type="submit">Reservar</button>
+        </form>
+        <script>
+            document.getElementById("pacoteSelect").addEventListener("change", function () {
+                var selectedOption = this.options[this.selectedIndex];
+                var dataInicio = selectedOption.getAttribute("data-datainicio");
+                if (dataInicio) {
+                    var date = new Date(dataInicio);
+                    var formattedDate = date.toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    });
+                    document.getElementById("dataInicio").textContent = formattedDate;
+                } else {
+                    document.getElementById("dataInicio").textContent = "";
+                }
+            });
+        </script>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>

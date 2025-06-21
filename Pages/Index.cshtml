@@ -1,0 +1,23 @@
+﻿@page
+@using EXPEXturism.Data
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    @if (Model.PacotesDisponiveis.Any())
+    {
+        @foreach (var pacote in Model.PacotesDisponiveis)
+        {
+            <h3><strong>Pacote:</strong> @pacote.Nome</h3>
+            <p><strong>Data de Início:</strong> @pacote.DataInicio.ToShortDateString()</p>
+            <p><strong>Valor:</strong> @pacote.Preco.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</p>
+            <a class="nav-link text-dark" asp-area="" asp-page="/PacoteTuristicoDetails/Pacote_Turistico_Details" asp-route-id=@pacote.Id>Detalhes</a>
+        }
+    }
+    else
+    {
+        <p>Nenhum pacote turístico cadastrado.</p>
+    }
+</div>

@@ -1,0 +1,29 @@
+﻿@page
+@model EXPEXturism.Pages.CreateDestino.CreateDestinoModel
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@{
+    ViewData["Title"] = "Criar Destino";
+}
+
+<h2>Criar Destino</h2>
+
+<form method="post">
+    <div>
+        <label>Nome do Destino:</label>
+        <input asp-for="Destino.Nome" />
+        <span asp-validation-for="Destino.Nome" style="color:red;"></span>
+    </div>
+    <div>
+        <label>Sigla do País:</label>
+        <input asp-for="Destino.Pais" />
+        <span asp-validation-for="Destino.Pais" style="color:red;"></span>
+    </div>
+    <button type="submit">Cadastrar</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    <p style="color:green">@Model.Mensagem</p>
+}

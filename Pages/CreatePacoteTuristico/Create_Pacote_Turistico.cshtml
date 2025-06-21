@@ -1,0 +1,65 @@
+﻿@page
+@using EXPEXturism.Data
+@model EXPEXturism.Pages.CreatePacoteTuristico.Create_Pacote_TuristicoModel
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@{
+    ViewData["Title"] = "Cadastrar Pacote Turístico";
+}
+
+<h2>Cadastrar Pacote Turístico</h2>
+
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    <p style="color:green;">@Model.Mensagem</p>
+}
+
+<form method="post">
+    <div>
+        <label asp-for="PacoteTuristico.Nome">Nome: </label>
+        <input asp-for="PacoteTuristico.Nome" />
+        <span asp-validation-for="PacoteTuristico.Nome" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="PacoteTuristico.DataInicio">Data Início: </label>
+        <input asp-for="PacoteTuristico.DataInicio" type="date" />
+        <span asp-validation-for="PacoteTuristico.DataInicio" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="PacoteTuristico.CapacidadeMaxima">Capacidade Máxima: </label>
+        <input asp-for="PacoteTuristico.CapacidadeMaxima" type="number" min="1" max="100" />
+        <span asp-validation-for="PacoteTuristico.CapacidadeMaxima" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="PacoteTuristico.Preco">Preço: </label>
+        <input asp-for="PacoteTuristico.Preco" type="number" step="0.01" min="0" />
+        <span asp-validation-for="PacoteTuristico.Preco" style="color:red"></span>
+    </div>
+
+    <div>
+        <label><strong>Destinos</strong></label><br />
+
+        @if (Model.DestinosDisponiveis.Count == 0)
+        {
+            <p style="color:orange;">Nenhum destino cadastrado.</p>
+        }
+        else
+        {
+            @foreach (var destino in Model.DestinosDisponiveis)
+            {
+                <div>
+                    <input type="checkbox" name="DestinosSelecionados" value="@destino.Id" id="destino_@destino.Id" />
+                    <label for="destino_@destino.Id">@destino.Nome - @destino.Pais</label>
+                </div>
+            }
+            <span asp-validation-for="DestinosSelecionados" style="color:red"></span>
+        }
+    </div>
+
+
+    <button type="submit">Cadastrar Pacote</button>
+</form>
